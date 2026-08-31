@@ -379,7 +379,7 @@ FOOTER = {
 
 ASSISTANT = {
     "name": "Daniel's Assistant",
-    "status": "AI powered · answers from this portfolio",
+    "status": "✨ AI powered · online",
     "greeting": (
         "Hi! I answer questions about Daniel's credentials, experience and "
         "stack. Everything comes straight from this portfolio."
@@ -389,7 +389,7 @@ ASSISTANT = {
     # The starter questions shown when the chat is opened.
     "suggestions": [
         "What is Daniel's tech stack",
-        "Which agent frameworks has he worked in?",
+        "Which agent frameworks has he worked with?",
         "How does the cybersecurity certificate apply to AI work?",
     ],
     "prompt": """You answer questions about Daniel Cruz, an AI Developer based in Laval, on behalf of his credentials portfolio deck and work experience achievements. Be concise, factual and professional. If asked a question you do not have the answer to, explain that you cannot provide the answer since you do not have the information needed, and recommend sending Daniel an email instead.

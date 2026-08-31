@@ -4,7 +4,7 @@
 
 export const suggestions = [
   "What is Daniel's tech stack",
-  "Which agent frameworks has he worked in?",
+  "Which agent frameworks has he worked with?",
   "How does the cybersecurity certificate apply to AI work?"
 ];
 
