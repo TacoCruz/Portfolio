@@ -379,13 +379,13 @@ FOOTER = {
 
 ASSISTANT = {
     "name": "Daniel's Assistant",
-    "status": "✨ AI powered · online",
+    "status": "online - AI powered ✨",
     "greeting": (
         "Hi! I answer questions about Daniel's credentials, experience and "
         "stack. Everything comes straight from this portfolio."
     ),
     # The popup bubble that invites visitors to open the chat.
-    "nudge_html": "Questions about my background? <strong>Ask my AI assistant</strong>",
+    "nudge_html": "Have any questions? <strong>Ask my AI assistant</strong>",
     # The starter questions shown when the chat is opened.
     "suggestions": [
         "What is Daniel's tech stack",
