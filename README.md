@@ -1,84 +1,116 @@
-# DanielC | Portfolio
+<h1 align="center">DanielC · Portfolio</h1>
 
-Live at **https://tacocruz.github.io/Portfolio/**
+<p align="center">
+  A credentials portfolio for an AI developer, with an AI assistant that answers
+  questions about it.
+</p>
 
-The site is built from Python. You edit `content.py`, run one command, and the
-published page is regenerated for you.
+<p align="center">
+  <a href="https://tacocruz.github.io/Portfolio/"><b>View the live site →</b></a>
+</p>
 
-## Changing the site
+<p align="center">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.8+-3776AB?logo=python&logoColor=white">
+  <img alt="No dependencies" src="https://img.shields.io/badge/dependencies-none-34D399">
+  <img alt="Hosting" src="https://img.shields.io/badge/hosted-GitHub%20Pages-181717?logo=github">
+  <img alt="Backend" src="https://img.shields.io/badge/chat-Supabase%20Edge-3ECF8E?logo=supabase&logoColor=white">
+</p>
 
-```bash
-python build.py
+---
+
+## About
+
+A single-page portfolio presenting eleven verifiable credentials in
+retrieval-augmented generation, agentic AI and cybersecurity — built as a
+static site that is **generated from Python** rather than written by hand.
+
+The page is deliberately dependency-free: no framework, no bundler, no npm
+install. A Python script renders a content file into one self-contained HTML
+page, which GitHub Pages serves directly.
+
+## Features
+
+**Content as data.** Every word, credential and course lives in `content.py` as
+plain Python. Adding a certificate is five lines and a rebuild — the card,
+category filter and verification link are all generated.
+
+**Grounded AI assistant.** A chat widget answers questions about the developer's
+background using only the portfolio's own content as its system prompt, so it
+cannot invent credentials. When it lacks an answer it says so and points to
+email. The API key stays server-side in a Supabase Edge Function, rate-limited
+per visitor.
+
+**Motion that degrades gracefully.** Scroll reveals, a parallax hero, animated
+counters and a scrolling marquee, driven by `IntersectionObserver` and CSS
+transitions. Content is visible by default, so it still reads correctly with
+JavaScript disabled or `prefers-reduced-motion` set.
+
+**Filterable credential gallery.** Nine course certificates, filterable by
+discipline, each linking to its Coursera verification page.
+
+**Responsive across resolutions.** Fluid type and layout from 375 px phones up
+to 4K displays, where the whole layout scales rather than stranding the content
+in the middle of the screen.
+
+**Safe to edit.** The build refuses to run on a malformed content file or an
+unknown course category, and writes nothing when it fails — a bad edit cannot
+publish a broken page.
+
+## How it works
+
+```
+content.py ──┐
+             ├──► build.py ──► index.html + assistant-config.js ──► GitHub Pages
+templates/ ──┘                                                          │
+                                                                        ▼
+                                                  chat widget ──► Supabase Edge Function
+                                                                        │
+                                                                        ▼
+                                                                   OpenRouter
 ```
 
-That reads `content.py` and writes `index.html` and `assistant-config.js`.
-No `pip install` needed — it uses only the Python standard library (3.8+).
+`content.py` holds the data. `templates/page.html` holds the design — all CSS
+and browser JavaScript. `build.py` renders one into the other and writes the two
+files that get published.
 
-The full loop:
+Browser-side code stays JavaScript because browsers only execute JavaScript, but
+it is generated output: maintaining the site means editing Python.
 
-```bash
-# 1. edit content.py in your editor
-# 2. rebuild
-python build.py
+## Tech
 
-# 3. see it locally before publishing (open http://localhost:8000)
-python -m http.server 8000
-
-# 4. publish
-git add -A
-git commit -m "Add the new certificate"
-git push
-```
-
-GitHub Pages redeploys within a minute or two of the push.
-
-## Which file does what
-
-| File | What it is |
+| Layer | Built with |
 |---|---|
-| **`content.py`** | **Everything the site says. This is the file you edit.** |
-| `build.py` | Turns `content.py` into the site. Rarely needs changing. |
-| `templates/page.html` | The design: all CSS and browser JavaScript. Edit to change how it *looks*. |
-| `index.html` | **Generated. Do not edit** — `build.py` overwrites it. |
-| `assistant-config.js` | **Generated. Do not edit** — change `ASSISTANT` in `content.py`. |
-| `certs/` | Certificate images shown on the page. |
-| `supabase/functions/chat/` | The chatbot backend that holds the OpenRouter API key. |
+| Site generator | Python 3.8+, standard library only |
+| Page | Semantic HTML, CSS custom properties, vanilla JavaScript |
+| Type | Space Grotesk · IBM Plex Sans · JetBrains Mono |
+| Chat backend | Supabase Edge Function (Deno) proxying OpenRouter |
+| Hosting | GitHub Pages |
 
-## Common edits
+## Credentials featured
 
-**Add a certificate course.** In `content.py`, find `COURSES`, copy the last
-block, paste it below, and change the values:
+- **IBM RAG and Agentic AI** — Professional Certificate, ten courses covering
+  retrieval pipelines, vector databases, LangChain, LangGraph, CrewAI, AutoGen,
+  BeeAI and MCP
+- **Certificate in Cybersecurity Proficiency** — Concordia University,
+  Continuing Education
 
-```python
-{
-    "title": "Your New Course",
-    "category": "agents",          # must match a COURSE_FILTERS key
-    "image": "certs/your-image.png",
-    "date": "Sep 15, 2026",
-    "code": "ABC123XYZ",           # becomes a coursera.org/verify link
-},
+Every code on the page resolves at
+[coursera.org/verify](https://coursera.org/verify).
+
+## Running it locally
+
+```bash
+python build.py
+python -m http.server 8000
 ```
 
-Drop the image into `certs/`, then run `python build.py`.
+Then open <http://localhost:8000>.
 
-**Change what the chatbot knows.** Edit `ASSISTANT["prompt"]` in `content.py`,
-then rebuild. Write plain prose; quotes and apostrophes are safe to type.
+Editing, publishing and troubleshooting are covered in
+**[MAINTAINING.md](MAINTAINING.md)**.
 
-**Change the hero text, stats, or About section.** They are the `HERO`, `STATS`
-and `ABOUT` entries near the top of `content.py`.
+## Contact
 
-**Change colors, fonts, or animations.** Those live in the `<style>` block in
-`templates/page.html`.
-
-## If the build complains
-
-`build.py` stops with a plain-English message rather than publishing a broken
-page. The two usual causes:
-
-- **`SyntaxError` in content.py** — usually a missing comma or quote. The error
-  names the line number.
-- **`course ... has category 'x', which is not one of the COURSE_FILTERS keys`** —
-  a course's `category` must match one of the `key` values in `COURSE_FILTERS`.
-
-Nothing is written to `index.html` when the build fails, so the live site is
-never left half-updated.
+**Daniel Cruz** — AI Developer, Montreal
+[danielcruzcastro30@gmail.com](mailto:danielcruzcastro30@gmail.com) ·
+[LinkedIn](https://linkedin.com/in/daniel-cruz-0bab18224)
