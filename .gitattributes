@@ -1,0 +1,10 @@
+# Keep line endings consistent between build.py's output and what git stores.
+# Without this, Windows converts LF to CRLF on checkout and every run of
+# `python build.py` shows index.html and assistant-config.js as modified even
+# when their content has not changed at all.
+* text=auto eol=lf
+
+# Certificate images are binary; never touch them.
+*.png binary
+*.jpg binary
+*.pdf binary

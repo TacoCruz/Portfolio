@@ -1,0 +1,16 @@
+# Personal documents — never publish the actual diploma PDFs
+uploads/
+certs/*.pdf
+
+# Working notes and editor leftovers
+scratchpad.md
+.thumbnail
+
+# Environment files — never commit API keys of any kind
+.env
+.env.*
+*.local
+
+# Python build artifacts
+__pycache__/
+*.pyc
