@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <a href="https://tacocruz.github.io/Portfolio/"><b>View the live site →</b></a>
+  <a href="https://danielcruz-developer.github.io/Portfolio/"><b>View the live site →</b></a>
 </p>
 
 <p align="center">
